@@ -18,15 +18,14 @@
     (read-file-name "Lisp directory: ")))
   (byte-recompile-directory directory 0 t))
 
-; set the default width and height
-; For 4K resolution::
-;(set-frame-height (selected-frame) 160)
-;(set-frame-width (selected-frame) 150)
-; For 1920x1080 resolution
-;(set-frame-size (selected-frame) 400 300)
-(set-frame-size (selected-frame) 400 300)
-(when window-system (set-frame-size (selected-frame) 400 300))
-(setq default-fill-column 100)
+;; Set the default width and height
+;; For 4K resolution::
+; (set-frame-height (selected-frame) 160)
+; (set-frame-width (selected-frame) 150)
+;; For 1920x1080 resolution
+; (set-frame-size (selected-frame) 400 300)
+; (when window-system (set-frame-size (selected-frame) 400 300))
+; (setq default-fill-column 100)
 
 (defun wc ()
   (interactive)
@@ -184,8 +183,9 @@
 ;; type "y"/"n" instead of "yes"/"no"
 ;(fset 'yes-or-no-p 'y-or-n-p)
 
-; backup files go into .~ directory now
-(add-to-list 'backup-directory-alist (cons "." ".~"))
+;; backup files go into .~ directory now
+; (add-to-list 'backup-directory-alist (cons "." ".~"))
+(setq make-backup-files nil)
 
 ; preserve case when expanding
 (setq dabbrev-case-replace nil)
@@ -640,6 +640,16 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(bs-configurations
+   (quote
+    (("all" nil nil nil nil nil)
+     ("files" nil nil nil bs-visits-non-file bs-sort-buffer-interns-are-last)
+     ("files-and-scratch" "^\\*scratch\\*$" nil nil bs-visits-non-file bs-sort-buffer-interns-are-last)
+     ("all-intern-last" nil nil nil nil bs-sort-buffer-interns-are-last)
+     ("files-and-shell" "^\\*\\(shell\\|grep\\).*\\*$" nil nil bs-visits-non-file bs-sort-buffer-interns-are-last))))
+ '(bs-default-configuration "files-and-shell")
+ '(custom-enabled-themes (quote (tango-dark)))
+ '(verilog-auto-newline nil)
  '(gdb-many-windows t)
  '(js2-basic-offset 2))
 (custom-set-faces
@@ -727,3 +737,85 @@ This command does not push text to `kill-ring'."
 ;;(global-set-key (kbd "C-k") 'my-delete-line)
 (global-set-key (kbd "M-d") 'my-delete-word)
 (global-set-key (kbd "<M-backspace>") 'my-backward-delete-word)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Personal Setting
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;--------------------------------------
+;; General Kyebind
+;;--------------------------------------
+(keyboard-translate ?\C-h ?\C-?)
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+
+(global-set-key (kbd "C-c C-g") 'goto-line)
+(global-set-key (kbd "C-x C-b") 'bs-show)
+
+;;--------------------------------------
+;; recentf
+;;--------------------------------------
+(require 'recentf)
+;; (setq recentf-save-file "~/.emacs.d/.recentf")
+(setq recentf-exclude '(".recentf"))
+(setq recentf-max-saved-items 2000)
+;; (setq recentf-auto-cleanup 'never)
+
+ ;; save recent file list to .recentf every 30 sec
+(setq recentf-auto-save-timer (run-with-idle-timer 600 t 'recentf-save-list))
+
+(recentf-mode 1)
+
+;;--------------------------------------
+;; undo-tree
+;;--------------------------------------
+(require 'undo-tree)
+(global-undo-tree-mode t)
+(global-set-key (kbd "C-x M-/") 'undo-tree-redo)
+
+;;--------------------------------------
+;; whitespace
+;;--------------------------------------
+(require 'whitespace)
+
+;; Space
+(set-face-foreground 'whitespace-space nil)
+(set-face-background 'whitespace-space "gray33")
+
+;; Empty
+(set-face-background 'whitespace-empty "gray33")
+
+;; TAB
+(set-face-foreground 'whitespace-tab nil)
+(set-face-background 'whitespace-tab "gray33")
+
+;; Spaces at end of line
+;; (set-face-background 'whitespace-trailing "gray33")
+(set-face-background 'whitespace-trailing "yellow")
+
+;; Hard space
+(set-face-background 'whitespace-hspace "gray33")
+
+;; Change the display mapping
+(setq whitespace-display-mappings
+      '((tab-mark ?\t [?\xBB ?\t])))
+
+(setq whitespace-style '(face           ; Visualized by face
+                         trailing       ; End of line
+                         tabs           ; TAB
+                         empty          ; empty line
+                         spaces         ; space
+                         ;; space-mark     ; mapping of space
+                         tab-mark       ; mapping of TAB
+                         ))
+
+;; Visualize double space
+(setq whitespace-space-regexp "\\(\u3000+\\)")
+
+;; Visualize trailing
+; (setq whitespace-trailing-regexp  "[\\b ]+\\([\t \u00A0]+\\)$")
+(setq whitespace-trailing-regexp
+      "\\b.*?\\(\\(\t\\| \\|\xA0\\|\x8A0\\|\x920\\|\xE20\\|\xF20\\)+\\)$")
+
+;; Enabled
+(global-whitespace-mode 1)
