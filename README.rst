@@ -4,7 +4,7 @@ Personal Emacs Configuration
 Stuff I've gathered over the many years of using emacs.
 A lot of the 3rd party scripts are directly copied in order to save users from hunting this across the net.
 
-Assuming thiis cloned to ~/rdiankov-emacs-config, execute the following to setup in system:
+Assuming thiis cloned to ~/emacs-config, execute the following to setup in system:
 
 Ubuntu 10.04:
 
@@ -29,9 +29,9 @@ All:
 
 .. code-block::
 
-  git clone https://github.com/rdiankov/emacs-config.git $HOME/rdiankov-emacs-config
-  ln -f -s $HOME/rdiankov-emacs-config/.emacs-lisp $HOME/.emacs-lisp
-  ln -f -s $HOME/rdiankov-emacs-config/.emacs $HOME/.emacs
+  git clone https://github.com/rdiankov/emacs-config.git $HOME/emacs-config
+  ln -f -s $HOME/emacs-config/.emacs-lisp $HOME/.emacs-lisp
+  ln -f -s $HOME/emacs-config/.emacs $HOME/.emacs
   cd $HOME/.emacs-lisp/cedet_trunk_20140220
   make EMACS=emacs
   cd $HOME/.emacs-lisp/auto-complete-1.3.1
