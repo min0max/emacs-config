@@ -809,11 +809,12 @@ This command does not push text to `kill-ring'."
                          tab-mark       ; mapping of TAB
                          ))
 
-;; Visualize double space
+;; Modified space regexp: Highlight only double space
 (setq whitespace-space-regexp "\\(\u3000+\\)")
 
-;; Visualize trailing
-; (setq whitespace-trailing-regexp  "[\\b ]+\\([\t \u00A0]+\\)$")
+;; Modified trailing regexp: Highlight only non-empty line of trailing white space
+; Reference:
+; https://stackoverflow.com/questions/1412913/show-trailing-whitespace-on-emacs-only-on-non-empty-lines
 (setq whitespace-trailing-regexp
       "\\b.*?\\(\\(\t\\| \\|\xA0\\|\x8A0\\|\x920\\|\xE20\\|\xF20\\)+\\)$")
 
