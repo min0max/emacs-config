@@ -150,10 +150,12 @@
 (defun my-c++-mode-hook ()
   (setq tab-width 4)
   (setq c-indent-level 4)
+  (c-set-offset 'substatement-open 0)
 )
 (defun my-c-mode-hook ()
   (setq tab-width 4)
   (setq c-indent-level 4)
+  (c-set-offset 'substatement-open 0)
 )
 
 (defun my-js-mode-hook ()
@@ -820,3 +822,20 @@ This command does not push text to `kill-ring'."
 
 ;; Enabled
 (global-whitespace-mode 1)
+
+
+;;--------------------------------------
+;; Style
+;;--------------------------------------
+(setq c-default-style '((java-mode . "java")
+                        (awk-mode  . "awk")
+                        (other     . "linux")
+                        ))
+
+;; (add-hook 'c-mode-hook   'my-c-mode-hook)
+;; (add-hook 'c++-mode-hook 'my-c++-mode-hook)
+;;--------------------------------------
+;; svn/git
+;;--------------------------------------
+(setq vc-follow-symlinks t)
+(setq auto-revert-check-vc-info t)
