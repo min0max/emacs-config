@@ -788,11 +788,11 @@ This command does not push text to `kill-ring'."
 (set-face-background 'whitespace-empty "gray33")
 
 ;; TAB
-(set-face-foreground 'whitespace-tab nil)
-(set-face-background 'whitespace-tab "gray33")
+(set-face-foreground 'whitespace-tab "gray60")
+(set-face-background 'whitespace-tab nil)
 
 ;; Spaces at end of line
-;; (set-face-background 'whitespace-trailing "gray33")
+; (set-face-background 'whitespace-trailing "gray33")
 (set-face-background 'whitespace-trailing "yellow")
 
 ;; Hard space
