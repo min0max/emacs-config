@@ -17,6 +17,8 @@ Ubuntu 10.04:
   sudo apt-get install emacs-snapshot-lucid # optional
 
 Ubuntu All:
+::
+
   sudo apt-get install --no-install-recommends python-mode pymacs xfonts-75dpi
 
 Debian 9 Stretch:
